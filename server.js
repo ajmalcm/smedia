@@ -44,28 +44,16 @@ mongoose.connect(URI, {
 }) 
 
 
-// if(process.env.NODE_ENV === 'production')
-// {
-//     app.use(express.static('client/build'))
-//     app.get("*",(req,res)=>{
-//         res.sendFile(path.join(__dirname, 'client/build', 'index.html'))
-//     })
-// }
+if(process.env.NODE_ENV === "production")
+{
+    app.use(express.static("client/build"))
+    const path=require("path");
+    app.get("*",(req,res)=>{
+        res.sendFile(path.resolve(__dirname, 'client/build', 'index.html'))
+    })
+}
 
-if (process.env.NODE_ENV === "production") {
-    // Serve any static files
-    app.use(express.static(path.join(__dirname, "client/build")));
-    // Handle React routing, return all requests to React app
-    app.get("*", function (req, res) {
-      res.sendFile(path.join(__dirname, "client/build", "index.html"));
-    });
-  }
 
-  app.use((req, res, next) => {
-    const error = new Error("Not found");
-    error.status = 404;
-    next(error);
-  });
 
 //listeners
 const port = process.env.PORT || 5000;
