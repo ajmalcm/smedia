@@ -61,6 +61,12 @@ if (process.env.NODE_ENV === "production") {
     });
   }
 
+  app.use((req, res, next) => {
+    const error = new Error("Not found");
+    error.status = 404;
+    next(error);
+  });
+
 //listeners
 const port = process.env.PORT || 5000;
 http.listen(port, () => {
