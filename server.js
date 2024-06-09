@@ -52,7 +52,8 @@ if(process.env.NODE_ENV === 'production')
     })
 }
 
-
+app.get("/",(req,res)=>{
+    res.json({hello:"hello world"})})
 
 //listeners
 const port = process.env.PORT || 5000;
